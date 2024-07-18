@@ -1,0 +1,337 @@
+{
+	"info": {
+		"_postman_id": "511f5e5a-a1b3-44ff-9627-2a2a0f235c3b",
+		"name": "Todoist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6064096"
+	},
+	"item": [
+		{
+			"name": "Post Tasks",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//Generate dynamic task name\r",
+							"var taskName = \"Task of \" + \"{{$randomNoun}}\";\r",
+							"//Saving variables in the Postman environment name taks\r",
+							"pm.environment.set(\"content_create\", taskName);\r",
+							"\r",
+							"//Generate dynamic task description\r",
+							"var taskDescription = \"Description \" + \"{{$randomWords}}\";\r",
+							"//Saving variables in the Postman environment for description\r",
+							"pm.environment.set(\"description_create\", taskDescription);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// This code checks that the status code is 200 when is create a task.\r",
+							"pm.test(\"Verify that the code status is 200 when create a new tasks\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"// This code checks that the ID is response when is create a task.\r",
+							"pm.test(\"Verify that the response API contains a field ID when creatde a new tasks\", function () {\r",
+							"    var respondeJson = pm.response.json()\r",
+							"    pm.expect(respondeJson).to.have.property('id')\r",
+							"});\r",
+							"// This code checks that the response time is less than 2000 milliseconds (2 seconds)\r",
+							"pm.test(\"Verify that the response time is less than when creating a task\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"// This code checks that the task name is not null when is create a task.\r",
+							"pm.test(\"Verify that task name is no null, when created a new tasks\", function () {\r",
+							"    var dataTasks = pm.response.json().content\r",
+							"    pm.expect(dataTasks).to.not.be.null;\r",
+							"});\r",
+							"// This code checks que API Headers tenga Date when creating task list.\r",
+							"pm.test(\"Verify that the API headers contains DATE when creating tasks\", function () {\r",
+							"    pm.response.to.have.header(\"Date\");\r",
+							"});\r",
+							"// This code saves the ID of the task created in the script execution environment when is create a task.\r",
+							"pm.test(\"Save ID of the created task\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"task_id\", jsonData.id);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"{{content_create}}\",\r\n    \"description\": \"{{description_create}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://api.todoist.com/rest/v2/tasks"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tasks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// This code checks that the status code is 200 when getting task list.\r",
+							"pm.test(\"Verify that the code status is 200 when getting tasks\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"// This code checks that the status code is 200 when getting task list.\r",
+							"pm.test(\"Verify that the response API contains a field ID when getting tasks\", function () {\r",
+							"    var respondeJson = pm.response.json()\r",
+							"    respondeJson.forEach(function(item) {\r",
+							"        //pm.expect(item.status).to.eql(\"active\");\r",
+							"        pm.expect(item).to.have.property('id')\r",
+							"    });\r",
+							"});\r",
+							"// This code checks if response contains field content when getting task list.\r",
+							"pm.test(\"Verify that response API contains of field CONTENT when getting tasks\", function () {\r",
+							"    var respondeJson = pm.response.json()\r",
+							"    respondeJson.forEach(function(item) {\r",
+							"         pm.expect(item).to.have.property('content')\r",
+							"    });\r",
+							"   \r",
+							"});\r",
+							"// This code checks if response contains field description when getting task list.\r",
+							"pm.test(\"Verify that response API contains of field DESCRIPTION when getting tasks\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"});\r",
+							"// This code checks que API Headers tenga Date when getting task list.\r",
+							"pm.test(\"Verify that the API headers contains DATE when getting tasks\", function () {\r",
+							"    pm.response.to.have.header(\"Date\");\r",
+							"});\r",
+							"// This code checks que API Headers tenga Content-Type when getting task list.\r",
+							"pm.test(\"Verify that the API headers contains Content-Type when getting tasks\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://api.todoist.com/rest/v2/tasks"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Tasks",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//Generate dynamic task  for update\r",
+							"var taskNameEdit = \"Update Task of \" + \"{{$randomNoun}}\";\r",
+							"pm.collectionVariables.set(\"edit_content\", taskNameEdit);\r",
+							"\r",
+							"//Generate dynamic task description for update\r",
+							"var taskDescriptionEdit = \"Update Description \" + \"{{$randomWords}}\";\r",
+							"pm.collectionVariables.set(\"edit_description\", taskDescriptionEdit);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// This code checks that the status code is 200 when updating a task.\r",
+							"pm.test(\"Verify that the code status is 200 when updating a task\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"// This code checks that the response API the ID when updating task.\r",
+							"pm.test(\"Verify that the response API contains a field ID when updating a task\", function () {\r",
+							"    var respondeJson = pm.response.json()\r",
+							"    pm.expect(respondeJson).to.have.property('id')\r",
+							"});\r",
+							"// This code checks that the task name is not null when updating task.\r",
+							"pm.test(\"Verify that task name is no null when updating task\", function () {\r",
+							"    var dataTasks = pm.response.json().content\r",
+							"    pm.expect(dataTasks).to.not.be.null;\r",
+							"});\r",
+							"// This code checks that the updated task ID is equal to the created task ID\r",
+							"pm.test(\"Validate that the updated task ID is equal to the created task ID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var createdId = pm.environment.get(\"task_id\");\r",
+							"    pm.expect(jsonData.id).to.eql(createdId);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"{{edit_content}}\",\r\n    \"description\": \"{{edit_description}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://api.todoist.com/rest/v2/tasks/{{task_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Tasks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// This code checks that the status code is 204 when deleting a task.\r",
+							"pm.test(\"Verify that the status code is 204 when deleting a task.\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://api.todoist.com/rest/v2/tasks/{{task_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Post Tasks Data Invalid",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// This code checks that the status code is 400 When creating a task with invalid data.\r",
+							"pm.test(\"Verify that the status code is 400 when creating a task with invalid data.\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"// This code checks that the response content if applicable.\r",
+							"pm.test(\"Validate error message for invalid data\", function () {\r",
+							"    var text = pm.response.text();\r",
+							"    pm.expect(text).to.eql(\"Invalid argument value\");\r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://api.todoist.com/rest/v2/tasks"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": ""
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "content",
+			"value": ""
+		},
+		{
+			"key": "description",
+			"value": ""
+		},
+		{
+			"key": "edit_content",
+			"value": ""
+		},
+		{
+			"key": "edit_description",
+			"value": ""
+		}
+	]
+}
