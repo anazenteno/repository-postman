@@ -1,7 +1,6 @@
 # TODOIST
-**************************************************************************************
 Instrucciones para Configurar y Ejecutar Pruebas Automatizadas de API en Postman
-**************************************************************************************
+
 # Requisitos Previos
   	1. Instalación de Postman: Asegúrate de tener la última versión de Postman 
   	   instalada. Puedes descargarla desde aquí.(https://www.postman.com/)
@@ -20,47 +19,48 @@ Instrucciones para Configurar y Ejecutar Pruebas Automatizadas de API en Postman
 		-------------------------------------------------------------------------------
 
 # Archivo JSON de Colección de Postman
-	1. Descargar Archivo JSON: Descarga el archivo JSON de la colección y ambiente de
-	   Postman desde el siguiente enlace
+	1. Clonar el repositorio del proyecto Postman
 	   --------------------------------------------------------------------------------
-	   - Todoist.postman_collection.json
-	   - Todoist-Tasks.postman_environment.json
+	   - git clone https://github.com/anazenteno/repository-postman.git
 	   --------------------------------------------------------------------------------
 
 # Configuración en Postman
 	1. Importar la Colección:
 		- Abre Postman.
 		- Haz clic en Import en la parte superior izquierda.
-		- Selecciona Upload Files y elige el archivo JSON descargado.
+		- Selecciona  los dos archivos JSON.
 		- Haz clic en Import.
-
-	2. Verificar Variables de Entorno:
-		- Algunas pruebas pueden requerir variables de entorno. Asegúrate de tener 
-		  configuradas las variables de entorno necesarias en Postman.
-		- Importa el archivo de entorno si es necesario:
 
 # Ejecución de Pruebas en Postman	
 	1. Ejecutar Manualmente:
 		- Selecciona la colección importada.
+		- Haz clic en collection Todoist 3 puntos
+		- haz click en editar ir seccion Authorization
+		- ingresar el api token que la app Todoist te proporciona
+		  esta es la ruta don se encuentra el api token tu_cuenta_todoist->configuracion->integraciones->desarrolladores y guardar.
 		- Haz clic en Run para abrir el Collection Runner.
-		- Selecciona el entorno adecuado si es necesario.
+		- Selecciona el entorno Todoist-Tasks.
 		- Haz clic en Start Run para ejecutar las pruebas.
 
-# Ejecución de Pruebas con Newman HTML
-	1. Descargar el script .bat para windwos
-	   -------------------------------------------------------------------------------
-	   - collection-todoist.bat
-	   -------------------------------------------------------------------------------
+# Ejecución de reportes con Newman HTML
 	3. Abrir el script collection-todoist.bat con editor de texto y en el sector 
-	   POSTMAN_API_KEY modificar la informacion con el API Key de postman y guardar.
+	   set_API_KEY modificar la informacion con el API Key de postman y guardar.
 	   -------------------------------------------------------------------------------
 	   - set POSTMAN_API_KEY= XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	   -------------------------------------------------------------------------------
 	   Nota:
 	    - Tienes que genera tu API Key en Postman
-
-	2. Ejecutar el script haciendo doble click en el collection-todoist.bat y se
-	   generara el reporte en el navegador
+	
+	3. Ejecutar el script haciendo doble click en el collection-todoist.bat y se
+	   generara el reporte, dentro del carpte clonada donde se encuenta el script vera 
+	   diferentes archivos entre estos hay uno con icono del navegador abrir esto y vera
+	   el reporte que se ejecuto
+	   -------------------------------------------------------------------------------
+	   - collection-todoist.bat
+	   -------------------------------------------------------------------------------
+	   Nota: Se creo este script para ejecutar de una manera mas facil los reportes sin la necesidad
+	   de estar descargando el Json de postman este script lo hace directo y cualquier modificacion 
+	   que se haga en los request y se ejecute el reporte se reflejara los cambios. 
 
 # Notas Adicionales
 	1. Documentación: Revisa la documentación oficial de Postman y Newman para más 
