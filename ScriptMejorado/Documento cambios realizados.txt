@@ -1,0 +1,9 @@
+Documentación de los Cambios Realizados
+
+- Se creo funciones para crear y listar tareas esto para que cumplan su funcion unica
+- Se creo una funcion para setup driver para dar mas acciones a mi navegador.
+- Añadido aomentarios y documentación de Funciones para que se entienda que hace cada funcion
+- Se ha añadido una verificación para validar la creacion de tareas, que la tarea exista en la lista y que la lista de tareas incremente +1.
+- Se ha añadido una verificación if __name__ == "__main__": para que el script solo ejecute el bloque de código de prueba si se ejecuta como programa principal.
+Renombramiento de Variables:
+

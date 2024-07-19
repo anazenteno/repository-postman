@@ -5,9 +5,9 @@ Instrucciones para Configurar y Ejecutar Pruebas Automatizadas de API en Postman
   	1. Instalación de Postman: Asegúrate de tener la última versión de Postman 
   	   instalada. Puedes descargarla desde aquí.(https://www.postman.com/)
 
-	2. Node.js y Newman: Instala Node.js desde aquí (https://nodejs.org/en).Newman es 
-	   el CLI de Postman y puede ser instalado utilizando npm (el gestor de paquetes de Node.js).
-
+	2. Node.js la version tiene que ser superior 16 y Newman: Instala Node.js desde 
+	   aquí (https://nodejs.org/en).Newman es el CLI de Postman y puede ser instalado
+	   utilizando npm (el gestor de paquetes de Node.js).
 		Ejecutar por consola 
 		Instalar newman
 		-------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ Instrucciones para Configurar y Ejecutar Pruebas Automatizadas de API en Postman
 		- Haz clic en Run para abrir el Collection Runner.
 		- Selecciona el entorno Todoist-Tasks.
 		- Haz clic en Start Run para ejecutar las pruebas.
-		
+
 
 # Ejecución de reportes con Newman HTML
 	3. Abrir el script collection-todoist.bat con editor de texto y cambiar los 
