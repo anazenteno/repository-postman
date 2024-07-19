@@ -35,21 +35,31 @@ Instrucciones para Configurar y Ejecutar Pruebas Automatizadas de API en Postman
 	1. Ejecutar Manualmente:
 		- Selecciona la colección importada.
 		- Haz clic en collection Todoist 3 puntos
-		- haz click en editar ir seccion Authorization
-		- ingresar el api token que la app Todoist te proporciona
-		  esta es la ruta don se encuentra el api token tu_cuenta_todoist->configuracion->integraciones->desarrolladores y guardar.
+		- Haz click en editar ir seccion Authorization selecionar Authorization el tipo de auth Bearer Token 
+		- Ingresar el api token que la app Todoist te proporciona
+		  esta es la ruta don se encuentra el api token 
+		  tu_cuenta_todoist->configuracion->integraciones->desarrolladores.
+		- Guardar cuando se introduce el API token
 		- Haz clic en Run para abrir el Collection Runner.
 		- Selecciona el entorno Todoist-Tasks.
 		- Haz clic en Start Run para ejecutar las pruebas.
+		
 
 # Ejecución de reportes con Newman HTML
-	3. Abrir el script collection-todoist.bat con editor de texto y en el sector 
-	   set_API_KEY modificar la informacion con el API Key de postman y guardar.
+	3. Abrir el script collection-todoist.bat con editor de texto y cambiar los 
+	   siguientes datos: 
 	   -------------------------------------------------------------------------------
-	   - set POSTMAN_API_KEY= XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	   - set POSTMAN_API_KEY= XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  Cambiar esto con API Key de postman
+	   - set COLLECTION_UID= XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  Cambiar esto por lo generado en postman
+	   - set ENVIRONMENT_UID= XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  Cambiar eto por lo generado en portman
 	   -------------------------------------------------------------------------------
 	   Nota:
 	    - Tienes que genera tu API Key en Postman
+	    - Para obtner el UID collecion ejecutar este requiest para postman https://api.getpostman.com/collections
+	      y autentificarte con el API Key de postman
+	    - Para obtner el UID environments ejecutar este requiest para postman https://api.getpostman.com/environments
+	      y autentificarte con el API Key de postman 
+	    - Guardar todos los cambios en el script.
 	
 	3. Ejecutar el script haciendo doble click en el collection-todoist.bat y se
 	   generara el reporte, dentro del carpte clonada donde se encuenta el script vera 
